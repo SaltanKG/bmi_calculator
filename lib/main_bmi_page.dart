@@ -1,11 +1,20 @@
 import 'dart:ui';
 
+import 'package:bmi_calculator/result_page.dart';
+import 'package:bmi_calculator/result_page2.dart';
+import 'package:bmi_calculator/widgets/button_calculate.dart';
 import 'package:bmi_calculator/widgets/custom_widget.dart';
 import 'package:bmi_calculator/widgets/gender_widget.dart';
 import 'package:bmi_calculator/widgets/height_widget.dart';
 import 'package:bmi_calculator/widgets/weight_age_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+enum Gender {
+  Male,
+  Female,
+  None,
+}
 
 class MainBmiPage extends StatefulWidget {
   const MainBmiPage({Key key}) : super(key: key);
@@ -16,6 +25,14 @@ class MainBmiPage extends StatefulWidget {
 
 class _MainBmiPageState extends State<MainBmiPage> {
   double _sliderValue = 165;
+  int _weight = 65;
+  int _age = 30;
+  Color _activeColor = Color.fromARGB(255, 102, 104, 126);
+  Color _inactiveColor = Color(0xff111327);
+  // bool _maleKnopka = false;
+  // bool _femaleKnopka = false;
+
+  Gender _gender = Gender.None;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +44,33 @@ class _MainBmiPageState extends State<MainBmiPage> {
         child: Column(children: [
           Expanded(
             child: Row(
-              children: const [
+              children: [
                 CustomWidget(
-                  widget:
-                      GenderWidget(icons: FontAwesomeIcons.mars, text: 'male'),
+                  onTap: () {
+                    setState(() {});
+                    // _maleKnopka = true;
+                    // _maleKnopka = !_maleKnopka;
+                    _gender = Gender.Male;
+                  },
+                  // color: _maleKnopka ? _activeColor : _inactiveColor,
+                  color: _gender == Gender.Male ? _activeColor : _inactiveColor,
+                  widget: const GenderWidget(
+                      icons: FontAwesomeIcons.mars, text: 'male'),
                 ),
                 SizedBox(
                   width: 20.0,
                 ),
                 CustomWidget(
-                  widget: GenderWidget(
+                  onTap: () {
+                    setState(() {});
+                    // _femaleKnopka = true;
+                    // _femaleKnopka = !_femaleKnopka;
+                    _gender = Gender.Female;
+                  },
+                  // color: _femaleKnopka ? _inactiveColor : _activeColor,
+                  color:
+                      _gender == Gender.Female ? _inactiveColor : _activeColor,
+                  widget: const GenderWidget(
                       icons: FontAwesomeIcons.venus, text: 'female'),
                 ),
               ],
@@ -59,46 +93,65 @@ class _MainBmiPageState extends State<MainBmiPage> {
           ),
           Expanded(
             child: Row(
-              children: const [
+              children: [
                 CustomWidget(
-                  widget: WeightAgeWidget(text: 'weight', ekinchiText: '60'),
+                  widget: WeightAgeWidget(
+                      minus: () {
+                        setState(() {
+                          _weight--;
+                        });
+                      },
+                      plus: () {
+                        setState(() {
+                          _weight++;
+                        });
+                      },
+                      text: 'weight',
+                      ekinchiText: _weight.toString()),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20.0,
                 ),
                 CustomWidget(
-                  widget: WeightAgeWidget(text: 'age', ekinchiText: '25'),
+                  widget: WeightAgeWidget(
+                      minus: () {
+                        setState(() {
+                          _age--;
+                        });
+                      },
+                      plus: () {
+                        setState(() {
+                          _age++;
+                        });
+                      },
+                      text: 'age',
+                      ekinchiText: _age.toString()),
                 ),
               ],
             ),
           )
         ]),
       ),
+      bottomNavigationBar: Button_Calculate(
+        text: 'Calculate',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const ResultPage2()),
+            ),
+          );
+        },
+      ),
     );
   }
 }
 
-// Bul jakshy praktika emes
-Expanded newMethod() {
-  return Expanded(
-    child: Container(
-      decoration: BoxDecoration(
-        // color: const Color(0xff111327),
-        color: Colors.amber,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Column(
-        children: [
-          const FaIcon(
-            FontAwesomeIcons.mars,
-            size: 75.0,
-          ),
-          Text(
-            'male'.toUpperCase(),
-            style: const TextStyle(fontSize: 25.0),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+
+
+// Turnary operator ===>> _maleKnopka ==true ? _activeColor : _inactive
+// if (_maleKnopka == true){
+// _activeColor;
+// }else{
+// _inactive
+// }

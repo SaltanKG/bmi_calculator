@@ -15,6 +15,7 @@ class HeightWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Height'.toUpperCase(),
@@ -37,8 +38,8 @@ class HeightWidget extends StatelessWidget {
             ),
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                  activeTickMarkColor: Colors.red,
-                  inactiveTickMarkColor: Colors.white,
+                activeTrackColor : Colors.red,
+                  inactiveTrackColor : Colors.white,
                   thumbColor: Colors.red,
                   overlayColor: Colors.yellow),
               child: Slider(

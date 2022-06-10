@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WeightAgeWidget extends StatelessWidget {
-  const WeightAgeWidget({Key key, this.text, this.ekinchiText})
+  const WeightAgeWidget({Key key, this.text, this.ekinchiText, @required this.minus,@required this.plus})
       : super(key: key);
   final String text;
   final String ekinchiText;
+  final void Function() minus;
+  final void Function() plus;
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +26,24 @@ class WeightAgeWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Color(0xff4C4F5D)),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: FaIcon(FontAwesomeIcons.minus),
+                child: InkWell(
+                    onTap: minus, child: const FaIcon(FontAwesomeIcons.minus)),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15.0,
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Color(0xff4C4F5D)),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: FaIcon(FontAwesomeIcons.plus),
+                child:
+                    InkWell(onTap: plus, child: const FaIcon(FontAwesomeIcons.plus)),
               ),
             ),
           ],
