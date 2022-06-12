@@ -1,7 +1,5 @@
-import 'dart:ui';
-
+import 'package:bmi_calculator/brain/bmi_brain.dart';
 import 'package:bmi_calculator/result_page.dart';
-import 'package:bmi_calculator/result_page2.dart';
 import 'package:bmi_calculator/widgets/button_calculate.dart';
 import 'package:bmi_calculator/widgets/custom_widget.dart';
 import 'package:bmi_calculator/widgets/gender_widget.dart';
@@ -47,10 +45,11 @@ class _MainBmiPageState extends State<MainBmiPage> {
               children: [
                 CustomWidget(
                   onTap: () {
-                    setState(() {});
-                    // _maleKnopka = true;
-                    // _maleKnopka = !_maleKnopka;
-                    _gender = Gender.Male;
+                    setState(() {
+                      // _maleKnopka = true;
+                      // _maleKnopka = !_maleKnopka;
+                      _gender = Gender.Male;
+                    });
                   },
                   // color: _maleKnopka ? _activeColor : _inactiveColor,
                   color: _gender == Gender.Male ? _activeColor : _inactiveColor,
@@ -62,14 +61,15 @@ class _MainBmiPageState extends State<MainBmiPage> {
                 ),
                 CustomWidget(
                   onTap: () {
-                    setState(() {});
-                    // _femaleKnopka = true;
-                    // _femaleKnopka = !_femaleKnopka;
-                    _gender = Gender.Female;
+                    setState(() {
+                      // _femaleKnopka = true;
+                      // _femaleKnopka = !_femaleKnopka;
+                      _gender = Gender.Female;
+                    });
                   },
                   // color: _femaleKnopka ? _inactiveColor : _activeColor,
                   color:
-                      _gender == Gender.Female ? _inactiveColor : _activeColor,
+                      _gender == Gender.Female ? _activeColor : _inactiveColor,
                   widget: const GenderWidget(
                       icons: FontAwesomeIcons.venus, text: 'female'),
                 ),
@@ -138,7 +138,9 @@ class _MainBmiPageState extends State<MainBmiPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: ((context) => const ResultPage2()),
+              builder: ((context) => ResultPage(
+                    bmiResult: bmiBrain.calculateBmi(_weight, _age),
+                  )),
             ),
           );
         },
