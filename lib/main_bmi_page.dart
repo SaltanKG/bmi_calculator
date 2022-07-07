@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bmi_calculator/brain/bmi_brain.dart';
 import 'package:bmi_calculator/result_page.dart';
 import 'package:bmi_calculator/widgets/button_calculate.dart';
@@ -27,8 +29,7 @@ class _MainBmiPageState extends State<MainBmiPage> {
   int _age = 30;
   Color _activeColor = Color.fromARGB(255, 102, 104, 126);
   Color _inactiveColor = Color(0xff111327);
-  // bool _maleKnopka = false;
-  // bool _femaleKnopka = false;
+  
 
   Gender _gender = Gender.None;
   @override
@@ -46,12 +47,11 @@ class _MainBmiPageState extends State<MainBmiPage> {
                 CustomWidget(
                   onTap: () {
                     setState(() {
-                      // _maleKnopka = true;
-                      // _maleKnopka = !_maleKnopka;
+                  
                       _gender = Gender.Male;
                     });
                   },
-                  // color: _maleKnopka ? _activeColor : _inactiveColor,
+                 
                   color: _gender == Gender.Male ? _activeColor : _inactiveColor,
                   widget: const GenderWidget(
                       icons: FontAwesomeIcons.mars, text: 'male'),
@@ -62,12 +62,9 @@ class _MainBmiPageState extends State<MainBmiPage> {
                 CustomWidget(
                   onTap: () {
                     setState(() {
-                      // _femaleKnopka = true;
-                      // _femaleKnopka = !_femaleKnopka;
                       _gender = Gender.Female;
                     });
                   },
-                  // color: _femaleKnopka ? _inactiveColor : _activeColor,
                   color:
                       _gender == Gender.Female ? _activeColor : _inactiveColor,
                   widget: const GenderWidget(
@@ -139,10 +136,14 @@ class _MainBmiPageState extends State<MainBmiPage> {
             context,
             MaterialPageRoute(
               builder: ((context) => ResultPage(
-                    bmiResult: bmiBrain.calculateBmi(_weight, _age),
-                  )),
+                    bmiResult: bmiBrain.calculateBmi(_weight, _sliderValue.toInt()),
+                  )
+
+                  ),
+
             ),
           );
+
         },
       ),
     );

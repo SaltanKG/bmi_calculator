@@ -1,9 +1,13 @@
-import 'package:bmi_calculator/main_bmi_page.dart';
-import 'package:bmi_calculator/widgets/button_calculate.dart';
-import 'package:bmi_calculator/widgets/custom_widget.dart';
-import 'package:flutter/material.dart';
+// import 'package:bmi_calculator/main_bmi_page.dart';
+// import 'package:bmi_calculator/widgets/button_calculate.dart';
 
-import 'brain/bmi_brain.dart';
+// import 'package:flutter/material.dart';
+
+// import 'brain/bmi_brain.dart';
+
+import 'package:bmi_calculator/brain/bmi_brain.dart';
+import 'package:bmi_calculator/widgets/button_calculate.dart';
+import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({Key key, this.bmiResult}) : super(key: key);
@@ -65,14 +69,10 @@ class ResultPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Button_Calculate(
-        text: 'Re-Calculate',
-        onPressed: Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => const MainBmiPage()),
-          ),
-        ),
-      ),
+          text: 'Re-Calculate',
+          onPressed: () {
+            Navigator.pop(context);
+          }),
     );
   }
 }
